@@ -5,7 +5,7 @@
 {% endcomment -%}
 
 {% unless checkout_url %}
-  {% assign checkout_url = 'you.must.define.a.checkout.url' %}
+  {% assign checkout_url = 'https://miraclear.konnektive.com/StripeV2Test/checkout.php' %}
 {% endunless %}
 
 {% unless checkout_button_selector %}
@@ -35,20 +35,19 @@
             {%- endif -%}
           {%- endfor -%}
         };
-      }
-
+      }     
 
       function init() {
         self.options = Object.assign({
           products: productIdsWithQuantities(),
           checkoutButtonSelector: '{{ checkout_button_selector }}',
-          checkoutUrl: '{{ checkout_url }}'
+          checkoutUrl: '{{ checkout_url }}',
         }, options);
 
         self.$checkoutButton = $(self.options.checkoutButtonSelector);
 
         debug('Initialized with options', self.options);
-
+        
         inject();
       }
 
@@ -65,15 +64,22 @@
         event.preventDefault();
         window.location.href = checkoutUrl;
       }
-
+      
+      function getCartCookie(name) {
+       var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match){ 
+          return match[2];
+          }
+ 	  }
 
       function getCheckoutURL(products) {
+         cookie = getCartCookie('cart');
         var urlLineItems = Object.keys(products).reduce(function (output, productId) {
           var quantity = products[productId];
           return output.concat([ productId + ':' + quantity ]);
         }, []).join(';');
 
-        return self.options.checkoutUrl + '?products=' + urlLineItems;
+        return self.options.checkoutUrl + '?products=' + urlLineItems + '&cartId='+cookie;
       }
 
 
@@ -87,4 +93,5 @@
     var instance = new KonnektiveCart();
 
   });
+
 </script>
