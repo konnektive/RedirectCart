@@ -14,11 +14,11 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
 
-    var debug = true ? console.log.bind(console, '[DEBUG][KonnektiveCart]') : function () {};
+    var debug = true ? console.log.bind(console, '[DEBUG][RedirectCart]') : function () {};
 
     debug('Script loaded');
 
-    window.KonnektiveCart = function (options) {
+    window.RedirectCart = function (options) {
 
 
       var self = {};
@@ -90,7 +90,7 @@
 
     };
 
-    var instance = new KonnektiveCart();
+    var instance = new RedirectCart();
 
   });
 
