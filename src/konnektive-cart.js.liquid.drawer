@@ -90,7 +90,7 @@
         }, []).join(';');
 
         if (typeof affId !== 'undefined')
-          return self.options.checkoutUrl + '?products=' + urlLineItems + '&cartId='+cookie + '&affId='+affId+coupon;
+          return self.options.checkoutUrl + '?products=' + urlLineItems + '&cartId='+cookie + '&affId='+affId;
         else
           return self.options.checkoutUrl + '?products=' + urlLineItems + '&cartId='+cookie;
       }
